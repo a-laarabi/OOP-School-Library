@@ -45,10 +45,10 @@ class App
     puts 'Select a person from the following list by number (not id)'
     list_people
     person_index = gets.chomp.to_i
-    print "Date: #{Date.today}"
+    puts "Today: #{Date.today}"
+    print "Enter date of the rental: "
     date = gets.chomp
-    rental = Rental.new(@people[person_index], @books[book_index], date)
-    @rentals.push(rental)
+    @rentals << Rental.new(@people[person_index], @books[book_index], date)
     puts 'Rental created successfully'
   end
 
@@ -66,13 +66,47 @@ class App
     end
   end
 
+
+
+
+
+
+
   def list_rentals
-    puts 'Enter ID of the person'
+    puts 'Enter ID of the person (not number)'
     list_people
+
     person_id = gets.chomp.to_i
-    person = @people.select { |p| p.id == person_id }[0]
-    person.rentals.each_with_index { |rental, i| puts "#{i}) Book: #{rental.book.title}, Date: #{rental.date}" }
+
+
+
+
+  #   person = @people.select { |p| p.id == person_id }[0]
+  #   person.rentals.each_with_index { |rental, i| puts "#{i}) Book: #{rental.book.title}, Date: #{rental.date}" }
+  # end
+
+    is_id_exist = @people.any? { |person| person.id == person_id }
+    if is_id_exist
+      puts
+      puts "_ _ _Rentals for person id: #{person_id}_ _ _"
+      @rentals.each do |rental|
+        if rental.person.id == person_id
+          puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}"
+        end
+      end
+    else
+      puts 'ID not found'
+    end
   end
+
+
+
+
+
+
+
+
+
 
   def create_student
     puts 'Create a Student'
