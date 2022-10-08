@@ -46,7 +46,7 @@ class App
     list_people
     person_index = gets.chomp.to_i
     puts "Today: #{Date.today}"
-    print "Enter date of the rental: "
+    print 'Enter date of the rental: '
     date = gets.chomp
     @rentals << Rental.new(@people[person_index], @books[book_index], date)
     puts 'Rental created successfully'
@@ -66,24 +66,10 @@ class App
     end
   end
 
-
-
-
-
-
-
   def list_rentals
     puts 'Enter ID of the person (not number)'
     list_people
-
     person_id = gets.chomp.to_i
-
-
-
-
-  #   person = @people.select { |p| p.id == person_id }[0]
-  #   person.rentals.each_with_index { |rental, i| puts "#{i}) Book: #{rental.book.title}, Date: #{rental.date}" }
-  # end
 
     is_id_exist = @people.any? { |person| person.id == person_id }
     if is_id_exist
@@ -98,15 +84,6 @@ class App
       puts 'ID not found'
     end
   end
-
-
-
-
-
-
-
-
-
 
   def create_student
     puts 'Create a Student'
