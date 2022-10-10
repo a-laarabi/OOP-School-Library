@@ -35,6 +35,7 @@ class App
     else
       puts 'incorrect choice'
     end
+    run
   end
 
   def create_book
@@ -46,6 +47,7 @@ class App
     book = Book.new(title, author)
     @books.push(book)
     puts 'Book created successfully'
+    run
   end
 
   def create_rental
@@ -60,21 +62,23 @@ class App
     date = gets.chomp
     @rentals << Rental.new(@people[person_index], @books[book_index], date)
     puts 'Rental created successfully'
+    run
   end
 
   def list_books
-    return puts 'No books found!' if @books.empty?
+    puts 'No books found!' if @books.empty?
 
     @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
     run
   end
 
   def list_people
-    return puts 'No people found!' if @people.empty?
+    puts 'No people found!' if @people.empty?
 
     @people.each_with_index do |person, i|
       puts "#{i}) [#{person.class}] Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
     end
+    run
   end
 
   def list_rentals
@@ -94,6 +98,7 @@ class App
     else
       puts 'ID not found'
     end
+    run
   end
 
   def create_student
