@@ -133,26 +133,22 @@ class App
     call_app(choice)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+
   def call_app(choice)
     case choice
     when 1
       list_books
-      # run
     when 2
       list_people
-      # run
     when 3
       create_person
-      # run
     when 4
       create_book
-      # run
     when 5
       create_rental
-      # run
     when 6
       list_rentals
-      # run
     when 7
       puts 'Thanks for using this app!'
       exit
@@ -161,4 +157,5 @@ class App
       run
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

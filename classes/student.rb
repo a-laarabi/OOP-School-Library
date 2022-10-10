@@ -8,7 +8,7 @@ class Student < Person
     super(
       age,
       name,
-      parent_permission: parent_permission
+      parent_permission
     )
   end
 
