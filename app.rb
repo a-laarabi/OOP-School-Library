@@ -109,4 +109,26 @@ class App
     @people.push(teacher)
     puts 'Teacher created successfully'
   end
+
+  def call_app(choice)
+    case choice
+    when 1
+      list_books
+    when 2
+      list_people
+    when 3
+      create_person
+    when 4
+      create_book
+    when 5
+      create_rental
+    when 6
+      list_rentals
+    when 7
+      puts 'Thanks for using this app!'
+      break
+    else
+      puts 'Invalid input'
+    end
+  end
 end
