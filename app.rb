@@ -14,6 +14,16 @@ class App
     @rentals = []
   end
 
+  def list_actions
+    puts '1 - List all books'
+    puts '2 - List all people'
+    puts '3 - Create a person'
+    puts '4 - Create a book'
+    puts '5 - Create a rental'
+    puts '6 - List all rentals for a given person id'
+    puts '7 - Exit'
+  end
+
   def create_person
     puts 'Do you whant to create a Student (1) 0r Teacher (2)? [input the number]'
     input = gets.chomp.to_i
@@ -56,6 +66,7 @@ class App
     return puts 'No books found!' if @books.empty?
 
     @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
+    run
   end
 
   def list_people
@@ -110,25 +121,39 @@ class App
     puts 'Teacher created successfully'
   end
 
+  def run
+    list_actions
+
+    choice = gets.chomp.to_i
+    call_app(choice)
+  end
+
   def call_app(choice)
     case choice
     when 1
       list_books
+      # run
     when 2
       list_people
+      # run
     when 3
       create_person
+      # run
     when 4
       create_book
+      # run
     when 5
       create_rental
+      # run
     when 6
       list_rentals
+      # run
     when 7
       puts 'Thanks for using this app!'
-      break
+      exit
     else
       puts 'Invalid input'
+      run
     end
   end
 end
