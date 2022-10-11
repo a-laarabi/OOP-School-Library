@@ -8,12 +8,16 @@ require 'date'
 
 class App
   attr_accessor :people, :books
-  menu = Menu.new
 
   def initialize
     @people = []
     @books = []
     @rentals = []
+    @menu = Menu.new
+  end
+
+  def list_menu
+    @menu.list_actions
   end
 
   def create_person
@@ -27,7 +31,7 @@ class App
     else
       puts 'incorrect choice'
     end
-    menu.list_actions
+    list_menu
     run
   end
 
@@ -40,7 +44,7 @@ class App
     book = Book.new(title, author)
     @books.push(book)
     puts 'Book created successfully'
-    menu.list_actions
+    list_menu
     run
   end
 
@@ -63,7 +67,7 @@ class App
     rental = Rental.new(date, @books[selected_book], @people[selected_person])
     @rentals.push(rental)
     puts "Rental #{@books[selected_book].title} added"
-    menu.list_actions
+    list_menu
     run
   end
 
@@ -71,7 +75,7 @@ class App
     puts 'No books found!' if @books.empty?
 
     @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
-    menu.list_actions
+    list_menu
     run
   end
 
@@ -81,7 +85,7 @@ class App
     @people.each_with_index do |person, i|
       puts "#{i}) [#{person.class}] Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
     end
-    menu.list_actions
+    list_menu
     run
   end
 
@@ -99,13 +103,13 @@ class App
 
     if rentals.empty?
       puts 'no rental'
-      menu.list_actions
+      list_menu
       run
     else
 
       rentals.each do |item|
         puts "Date: #{item.date},  Book #{item.book.title}, by #{item.book.author}"
-        menu.list_actions
+        list_menu
         run
       end
     end
