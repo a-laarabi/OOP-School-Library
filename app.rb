@@ -92,10 +92,6 @@ class App
   def list_rentals
     puts 'Enter ID of the person (not number)'
 
-    @people.each_with_index do |person, i|
-      puts "#{i}) [#{person.class}] Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
-    end
-
     id = gets.chomp.to_i
     puts "Rentals by PersonID:#{id}"
 
@@ -159,7 +155,7 @@ class App
 
     teacher = Teacher.new(age, specialization, name, parent_permission: parent_permission)
     @people.push(teacher)
-    puts "Teacher #{teacher.name} created"
+    puts 'Teacher created successfully'
   end
 
   def run
