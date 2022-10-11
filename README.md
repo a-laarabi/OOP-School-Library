@@ -24,13 +24,19 @@ $ ruby {name of the file}
 
 Kindly modify the files as needed.
 
-## Author
+## Authors
 
 👤 **Anasse LAARABI**
 
 - GitHub: [@a-laarabi](https://github.com/a-laarabi)
 - Twitter: [@LusindisoNt](https://twitter.com/AnasseLaarabi)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/a-laarabi/)
+
+👤 **Bengi**
+
+- GitHub: [@bengigo](https://github.com/bengigo)
+- Twitter: [@bengi_gb](https://twitter.com/bengi_gb)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/bengigenc/)
 
 ## 🤝 Contributing
 
