@@ -1,9 +1,11 @@
 require_relative 'app'
+require_relative 'menu'
 
 def main
   app = App.new
+  menu = Menu.new
   puts 'Welcome to School Library App!'
-  app.list_actions
+  menu.list_actions
 
   app.run
 end

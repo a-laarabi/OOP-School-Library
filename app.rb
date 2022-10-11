@@ -3,25 +3,17 @@ require_relative './classes/person'
 require_relative './classes/student'
 require_relative './classes/teacher'
 require_relative './classes/rental'
+require_relative './menu'
 require 'date'
 
 class App
   attr_accessor :people, :books
+  menu = Menu.new
 
   def initialize
     @people = []
     @books = []
     @rentals = []
-  end
-
-  def list_actions
-    puts '1 - List all books'
-    puts '2 - List all people'
-    puts '3 - Create a person'
-    puts '4 - Create a book'
-    puts '5 - Create a rental'
-    puts '6 - List all rentals for a given person id'
-    puts '7 - Exit'
   end
 
   def create_person
@@ -35,7 +27,7 @@ class App
     else
       puts 'incorrect choice'
     end
-    list_actions
+    menu.list_actions
     run
   end
 
@@ -48,23 +40,30 @@ class App
     book = Book.new(title, author)
     @books.push(book)
     puts 'Book created successfully'
-    list_actions
+    menu.list_actions
     run
   end
 
   def create_rental
-    puts 'Select a book from the following list by number'
-    list_books
-    book_index = gets.chomp.to_i
-    puts 'Select a person from the following list by number (not id)'
-    list_people
-    person_index = gets.chomp.to_i
-    puts "Today: #{Date.today}"
-    print 'Enter date of the rental: '
+    puts 'Select the book from the following list by number (not ID)'
+    @books.each_with_index do |book, index|
+      puts "#{index}) Title: '#{book.title}', Author: '#{book.author}'"
+    end
+
+    selected_book = gets.chomp.to_i
+    puts 'Date:'
     date = gets.chomp
-    @rentals << Rental.new(@people[person_index], @books[book_index], date)
-    puts 'Rental created successfully'
-    list_actions
+
+    puts 'Select a person from the following list by number (not ID)'
+    @people.each_with_index do |person, index|
+      puts "#{index}) [#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+    end
+    selected_person = gets.chomp.to_i
+
+    rental = Rental.new(date, @books[selected_book], @people[selected_person])
+    @rentals.push(rental)
+    puts "Rental #{@books[selected_book].title} added"
+    menu.list_actions
     run
   end
 
@@ -72,7 +71,7 @@ class App
     puts 'No books found!' if @books.empty?
 
     @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
-    list_actions
+    menu.list_actions
     run
   end
 
@@ -82,40 +81,55 @@ class App
     @people.each_with_index do |person, i|
       puts "#{i}) [#{person.class}] Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
     end
-    list_actions
+    menu.list_actions
     run
   end
 
   def list_rentals
     puts 'Enter ID of the person (not number)'
-    list_people
-    person_id = gets.chomp.to_i
 
-    is_id_exist = @people.any? { |person| person.id == person_id }
-    if is_id_exist
-      puts
-      puts "_ _ _Rentals for person id: #{person_id}_ _ _"
-      @rentals.each do |rental|
-        if rental.person.id == person_id
-          puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}"
-        end
-      end
-    else
-      puts 'ID not found'
+    @people.each_with_index do |person, i|
+      puts "#{i}) [#{person.class}] Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
     end
-    list_actions
-    run
+
+    id = gets.chomp.to_i
+    puts "Rentals by PersonID:#{id}"
+
+    rentals = @rentals.select { |rental| id == rental.person.id }
+
+    if rentals.empty?
+      puts 'no rental'
+      menu.list_actions
+      run
+    else
+
+      rentals.each do |item|
+        puts "Date: #{item.date},  Book #{item.book.title}, by #{item.book.author}"
+        menu.list_actions
+        run
+      end
+    end
   end
 
   def create_student
     puts 'Create a Student'
+
     print 'Age: '
-    age = gets.chomp
+    age = gets.chomp.to_i
+
     print 'Name: '
     name = gets.chomp
+
     puts 'Has parent permissiom [Y/N]?'
-    parent_permission = gets.chomp.downcase
-    student = Student.new(age, name, parent_permission)
+    parent_permission = gets.chomp.upcase
+    case parent_permission
+    when 'Y'
+      parent_permission = true
+    when 'N'
+      parent_permission = false
+    end
+
+    student = Student.new(nil, age, name, parent_permission: parent_permission)
     @people.push(student)
     puts 'Student created successfully'
   end
@@ -123,13 +137,25 @@ class App
   def create_teacher
     print 'Age: '
     age = gets.chomp.to_i
+
     print 'Name: '
     name = gets.chomp
+
     print 'Specialization: '
     specialization = gets.chomp
-    teacher = Teacher.new(age, name, specialization)
+
+    puts 'Has parent permission? [Y/N]'
+    parent_permission = gets.chomp.upcase
+    case parent_permission
+    when 'Y'
+      parent_permission = true
+    when 'N'
+      parent_permission = false
+    end
+
+    teacher = Teacher.new(age, specialization, name, parent_permission: parent_permission)
     @people.push(teacher)
-    puts 'Teacher created successfully'
+    puts "Teacher #{teacher.name} created"
   end
 
   def run
@@ -137,9 +163,7 @@ class App
     call_app(choice)
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-
-  def call_app(choice)
+  def call_app(choice) # rubocop:disable Metrics/CyclomaticComplexity
     case choice
     when 1
       list_books
@@ -161,5 +185,4 @@ class App
       run
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 end
