@@ -139,6 +139,7 @@ class App
 
     student = Student.new(nil, age, name, parent_permission: parent_permission)
     @people.push(student)
+    save_student(name, age, parent_permission)
     puts 'Student created successfully'
   end
 
@@ -163,6 +164,7 @@ class App
 
     teacher = Teacher.new(age, specialization, name, parent_permission: parent_permission)
     @people.push(teacher)
+    save_teacher(name, age, specialization)
     puts 'Teacher created successfully'
   end
 

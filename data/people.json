@@ -1,0 +1,15 @@
+[
+  {
+    "type": "Student",
+    "name": "SGsag",
+    "age": 33,
+    "parent_permission": true
+  },
+  {
+    "type": "Teacher",
+    "specialization": "y",
+    "name": "sdva",
+    "age": 4234,
+    "parent_permission": true
+  }
+]
