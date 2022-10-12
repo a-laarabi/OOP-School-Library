@@ -20,6 +20,7 @@ class App
 
   def load_data
     load_books
+    load_people
   end
 
   def list_menu

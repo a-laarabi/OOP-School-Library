@@ -1,4 +1,7 @@
 require_relative '../classes/book'
+require_relative '../classes/person'
+require_relative '../classes/student'
+require_relative '../classes/teacher'
 require_relative '../app'
 require 'json'
 
@@ -41,5 +44,28 @@ def save_book(title, author)
     myfile = File.open('./data/books.json', 'w')
     myfile.write(JSON.pretty_generate(book))
     myfile.close
+  end
+end
+
+def load_people
+  if File.exist?('./data/people.json')
+    file = File.open('./data/people.json')
+    if File.empty?('./data/people.json')
+      puts 'Please add people data if this is your first time visiting our app'
+    else
+      people = JSON.parse(File.read('./data/people.json'))
+      people.each do |person|
+        if person['option'] == 'Student'
+          student = Student.new(person['age'], person['name'])
+          @people << student
+        else
+          teacher = Teacher.new(person['specialization'], person['age'], person['name'])
+          @people << teacher
+        end
+      end
+    end
+    file.close
+  else
+    puts 'Please insert some data'
   end
 end
