@@ -122,3 +122,21 @@ def save_teacher(name, age, specialization)
     myfile.close
   end
 end
+
+def load_rentals
+  if File.exist?('./data/rentals.json')
+    file = File.open('./data/rentals.json')
+
+    if file.size.zero?
+    else
+      rentals = JSON.parse(File.read('./data/rentals.json'))
+      puts 'Reserved books: '
+      rentals.each do |rental|
+        puts "Name: #{rental['person']}, Book: #{rental['book']} on: #{rental['date']}"
+      end
+    end
+    file.close
+  else
+    puts 'No reservations found, please reseve some books first'
+  end
+end

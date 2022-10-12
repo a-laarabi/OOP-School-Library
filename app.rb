@@ -21,6 +21,7 @@ class App
   def load_data
     load_books
     load_people
+    load_rentals
   end
 
   def list_menu
@@ -74,6 +75,7 @@ class App
 
     rental = Rental.new(date, @books[selected_book], @people[selected_person])
     @rentals.push(rental)
+    save_rentals(date, @books[selected_book], @people[selected_person])
     puts "Rental #{@books[selected_book].title} added"
     list_menu
     run
