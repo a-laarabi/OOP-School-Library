@@ -5,8 +5,9 @@ require_relative './classes/teacher'
 require_relative './classes/rental'
 require_relative './menu'
 require 'date'
+require_relative './data/preserve_data'
 
-class App
+class App # rubocop:disable Metrics/ClassLength
   attr_accessor :people, :books
 
   def initialize
@@ -14,6 +15,12 @@ class App
     @books = []
     @rentals = []
     @menu = Menu.new
+  end
+
+  def load_data
+    load_books
+    load_people
+    load_rentals
   end
 
   def list_menu
@@ -43,6 +50,7 @@ class App
     author = gets.chomp
     book = Book.new(title, author)
     @books.push(book)
+    save_book(title, author)
     puts 'Book created successfully'
     list_menu
     run
@@ -66,6 +74,7 @@ class App
 
     rental = Rental.new(date, @books[selected_book], @people[selected_person])
     @rentals.push(rental)
+    save_rentals(date, @books[selected_book], @people[selected_person])
     puts "Rental #{@books[selected_book].title} added"
     list_menu
     run
@@ -131,6 +140,7 @@ class App
 
     student = Student.new(nil, age, name, parent_permission: parent_permission)
     @people.push(student)
+    save_student(name, age, parent_permission)
     puts 'Student created successfully'
   end
 
@@ -155,6 +165,7 @@ class App
 
     teacher = Teacher.new(age, specialization, name, parent_permission: parent_permission)
     @people.push(teacher)
+    save_teacher(name, age, specialization)
     puts 'Teacher created successfully'
   end
 
