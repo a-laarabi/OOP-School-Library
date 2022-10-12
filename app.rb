@@ -7,7 +7,6 @@ require_relative './menu'
 require 'date'
 require_relative './data/preserve_data'
 
-
 class App
   attr_accessor :people, :books
 
