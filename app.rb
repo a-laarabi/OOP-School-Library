@@ -5,6 +5,8 @@ require_relative './classes/teacher'
 require_relative './classes/rental'
 require_relative './menu'
 require 'date'
+require_relative './data/preserve_data'
+
 
 class App
   attr_accessor :people, :books
@@ -14,6 +16,10 @@ class App
     @books = []
     @rentals = []
     @menu = Menu.new
+  end
+
+  def load_data
+    load_books
   end
 
   def list_menu
