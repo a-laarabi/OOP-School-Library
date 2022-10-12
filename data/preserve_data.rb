@@ -128,6 +128,7 @@ def load_rentals
     file = File.open('./data/rentals.json')
 
     if file.size.zero?
+      puts 'Please add some books first'
     else
       rentals = JSON.parse(File.read('./data/rentals.json'))
       puts 'Reserved books: '
