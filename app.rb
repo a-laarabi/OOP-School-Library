@@ -7,7 +7,7 @@ require_relative './menu'
 require 'date'
 require_relative './data/preserve_data'
 
-class App
+class App # rubocop:disable Metrics/ClassLength
   attr_accessor :people, :books
 
   def initialize
