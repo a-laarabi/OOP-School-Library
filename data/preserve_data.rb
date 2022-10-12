@@ -140,3 +140,28 @@ def load_rentals
     puts 'No reservations found, please reseve some books first'
   end
 end
+
+def save_rentals(date, book, person)
+  obj = {
+    date: date,
+    person: person.name,
+    book: book.title
+  }
+
+  if File.exist?('./data/rentals.json')
+    file = File.open('./data/rentals.json')
+
+    if file.size.zero?
+      rental = [obj]
+    else
+      rental = JSON.parse(File.read('./data/rentals.json'))
+      rental << obj
+    end
+
+    file.close
+
+    myfile = File.open('./data/rentals.json', 'w')
+    myfile.write(JSON.pretty_generate(rental))
+    myfile.close
+  end
+end
