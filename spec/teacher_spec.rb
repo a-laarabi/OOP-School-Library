@@ -16,7 +16,7 @@ describe Teacher do
     end
 
     it 'has a specialization' do
-      expect(teacher.name).to eq('Math')
+      expect(teacher.specialization).to eq('Math')
     end
   end
 end

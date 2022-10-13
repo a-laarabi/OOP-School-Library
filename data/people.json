@@ -11,5 +11,19 @@
     "name": "sdva",
     "age": 4234,
     "parent_permission": true
+  },
+  {
+    "type": "Teacher",
+    "specialization": "gv",
+    "name": "we53w",
+    "age": 0,
+    "parent_permission": true
+  },
+  {
+    "type": "Teacher",
+    "specialization": "spe..",
+    "name": "name",
+    "age": 33,
+    "parent_permission": true
   }
 ]
