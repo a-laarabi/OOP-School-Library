@@ -3,9 +3,9 @@ require_relative '../classes/book'
 require_relative '../classes/person'
 
 describe Rental do
-  let(:rental) { 
+  let(:rental) do
     Rental.new('2020-01-01', Book.new('book', 'author'), Person.new(55, 'Name_2'))
-   }
+  end
 
   describe '#new' do
     it 'creates a new rental' do
@@ -31,6 +31,5 @@ describe Rental do
     it 'age of the person rented the book' do
       expect(rental.person.age).to eq(55)
     end
-
   end
 end

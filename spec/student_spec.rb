@@ -14,6 +14,5 @@ describe Student do
     it 'has a name' do
       expect(student.name).to eq('Akram')
     end
-
   end
 end
