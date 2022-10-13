@@ -138,7 +138,7 @@ class App # rubocop:disable Metrics/ClassLength
       parent_permission = false
     end
 
-    student = Student.new(nil, age, name, parent_permission: parent_permission)
+    student = Student.new(age, name, parent_permission: parent_permission)
     @people.push(student)
     save_student(name, age, parent_permission)
     puts 'Student created successfully'
